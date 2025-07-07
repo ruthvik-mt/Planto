@@ -1,0 +1,14 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+torch==2.7.1+cpu
+torchvision
+numpy
+pandas
+matplotlib
+seaborn
+flask==2.0.0
+werkzeug==2.0.3
+gunicorn
+flask-cors
+pyfcm
+python-decouple
