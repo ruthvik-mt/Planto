@@ -44,7 +44,7 @@ visit the website:
 2. Change directory to web:
 
   ```bash
-        cd web
+  cd web
   ```
 3. Use npm run dev to start the application:
 
