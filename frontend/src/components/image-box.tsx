@@ -1,5 +1,4 @@
 // "use client"
-
 // import { Button } from "@/components/ui/button"
 // import { ChangeEvent, FormEvent, useState } from "react"
 // import { useToast } from "@/components/ui/use-toast"
@@ -15,57 +14,56 @@
 
 // export function ImageBox() {
 //   const [imageFile, setImageFile] = useState<File | null>(null)
+//   const [formData, setFormData] = useState<FormData[]>([])
 //   const [imageURL, setImageURL] = useState<string>()
-//   const [formData, setFormData] = useState<FormData | null>(null)
 //   const { toast } = useToast()
 
-//   // Upload handler
 //   function onImageUpload(e: ChangeEvent<HTMLInputElement>) {
 //     if (!e.target.files || !e.target.files[0]) return
-//     const file = e.target.files[0]
-//     setImageFile(file)
-//     setImageURL(URL.createObjectURL(file))
-
+//     setImageFile(e.target.files[0] ?? null)
 //     toast({
 //       variant: "success",
 //       title: "Image Uploaded",
-//       description: `${file.name} Uploaded Successfully`,
+//       description: `${e.target.files[0].name} Uploaded Successfully`,
 //     })
+//     setImageURL(URL.createObjectURL(e.target.files[0]))
 //   }
 
-//   // Disease detection query (disabled until triggered)
 //   const { isInitialLoading, error, data, refetch } = useQuery({
 //     queryKey: ["plantData"],
 //     enabled: false,
 //     queryFn: () =>
-//       fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-//   body: JSON.stringify({ image: reader.result }),
-// })
-// .then((res) => res.json()),
+//       fetch(
+//         "https://plant.id/api/v3/health_assessment?language=en&details=local_name,description,url,treatment,classification,common_names,cause",
+//         {
+//           method: "POST",
+//           headers: {
+//             "Api-Key": process.env.NEXT_PUBLIC_PLANT_ID_API_KEY!,
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify(formData[0]),
+//         }
+//       ).then((res) => res.json()),
 //   })
 
-//   // Submit handler
 //   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
 //     e.preventDefault()
 //     if (!imageFile) return
 
-//     const reader = new FileReader()
+//     let reader = new FileReader()
+
+//     // Converting Image to Base64 string
 //     reader.readAsDataURL(imageFile)
 
-//     reader.onload = async function () {
-//       const bodyData: FormData = {
+//     reader.onload = function () {
+//       const bodyData = {
 //         images: [reader.result],
 //         similar_images: true,
 //       }
-
-//       setFormData(bodyData)       // ✅ Set formData state
-//       await new Promise(resolve => setTimeout(resolve, 100)) // small delay for state sync
-//       await refetch()             // ✅ Now refetch with proper data
+//       formData.push(bodyData)
 //     }
+
+//     await refetch()
 //   }
 
 //   return (
@@ -75,9 +73,15 @@
 //           <label htmlFor="plant-image" className="cursor-pointer">
 //             <div className="relative w-72 mt-4 flex items-center justify-center aspect-square mx-auto border-2 dark:border-white border-black border-dashed rounded-lg">
 //               {imageURL ? (
-//                 <Image src={imageURL} alt="Image" fill className="rounded-lg object-cover" />
+//                 <Image src={imageURL} alt="Image" fill className="rounded-lg" />
 //               ) : (
 //                 <div className="flex flex-col gap-2 p-4 justify-center items-center">
+//                   {/* <Image
+//                     src="/logo.png"
+//                     alt="Logo"
+//                     width={48}
+//                     height={48}
+//                   /> */}
 //                   <p className="text-center">Upload Plant Image Here</p>
 //                 </div>
 //               )}
@@ -92,16 +96,16 @@
 //               />
 //             </div>
 //           </label>
-
 //           <div className="mt-4">
-//             {!imageFile ? (
+//             {imageFile === null ? (
 //               <Button disabled className="select-none">
 //                 Add Image to Proceed
 //               </Button>
 //             ) : (
 //               <div className="flex flex-col justify-center gap-4 items-center">
 //                 <p>{imageFile.name} Uploaded!</p>
-//                 <Button type="submit" disabled={isInitialLoading || !!data}>
+//                 {/* Disable the button when the process is running or already previous data is there */}
+//                 <Button type="submit" disabled={isInitialLoading || data}>
 //                   {isInitialLoading && (
 //                     <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
 //                   )}
@@ -112,9 +116,7 @@
 //           </div>
 //         </div>
 //       </form>
-
-//       {error && <p className="text-red-500 mt-4">Error: {String(error)}</p>}
-//       {data && <Result data={data} />}
+//       {data ? <Result data={data} /> : ""}
 //     </section>
 //   )
 // }
@@ -131,24 +133,31 @@ import { ReloadIcon } from "@radix-ui/react-icons"
 interface ResultType {
   plant: string
   disease: string
+  accuracy?: string
+  description?: string
+  treatment?: {
+    chemical?: string
+    biological?: string
+    prevention?: string
+  }
   remedy: string
+  source?: string
 }
 
 export function ImageBox() {
   const [imageFile, setImageFile] = useState<File | null>(null)
-  const [imageURL, setImageURL] = useState<string>("")
+  const [imageURL, setImageURL] = useState<string>()
   const [data, setData] = useState<ResultType | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { toast } = useToast()
 
-  // Handle image upload
   function onImageUpload(e: ChangeEvent<HTMLInputElement>) {
     if (!e.target.files || !e.target.files[0]) return
     const file = e.target.files[0]
     setImageFile(file)
     setImageURL(URL.createObjectURL(file))
-    setData(null) // Clear previous result
+    setData(null)
 
     toast({
       variant: "success",
@@ -157,7 +166,6 @@ export function ImageBox() {
     })
   }
 
-  // Handle form submission
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setError(null)
@@ -168,7 +176,7 @@ export function ImageBox() {
     reader.readAsDataURL(imageFile)
 
     reader.onload = async () => {
-      const base64Image = (reader.result as string).split(",")[1] // remove data:image/...;base64,
+      const base64Image = (reader.result as string).split(",")[1]
       setIsLoading(true)
 
       try {
@@ -201,7 +209,12 @@ export function ImageBox() {
           <label htmlFor="plant-image" className="cursor-pointer">
             <div className="relative w-72 mt-4 flex items-center justify-center aspect-square mx-auto border-2 dark:border-white border-black border-dashed rounded-lg">
               {imageURL ? (
-                <Image src={imageURL} alt="Uploaded Image" fill className="rounded-lg object-cover" />
+                <Image
+                  src={imageURL}
+                  alt="Uploaded Image"
+                  fill
+                  className="rounded-lg object-cover"
+                />
               ) : (
                 <div className="flex flex-col gap-2 p-4 justify-center items-center">
                   <p className="text-center">Upload Plant Image Here</p>
@@ -244,4 +257,3 @@ export function ImageBox() {
     </section>
   )
 }
-

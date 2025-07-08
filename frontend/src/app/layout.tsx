@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url), // ✅ This fixes the warning
   keywords: [
     "Next.js",
     "React",
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Ruthvik M T",
-      url: "vriksha-rakshak.vercel.app",
+      url: "https://vriksha-rakshak.vercel.app",
     },
   ],
   icons: {
