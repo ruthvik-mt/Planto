@@ -1,4 +1,4 @@
-# Vriksha Rakshak
+# Planto
 
 ## Table of Contents
 
@@ -9,9 +9,9 @@
 
 ## Introduction
 
-Vriksha Rakshak is a plant disease prediction and remedy suggestion application. It leverages CNN to analyze plant images and provide insights into potential diseases and their treatments.
+Planto is a plant disease prediction and remedy suggestion application. It leverages CNN to analyze plant images and provide insights into potential diseases and their treatments.
 
-Vriksha Rakshak aims to assist farmers and gardeners by providing a tool to identify plant diseases and suggest remedies. The application uses a machine learning model to predict diseases from plant images.
+Planto aims to assist farmers and gardeners by providing a tool to identify plant diseases and suggest remedies. The application uses a machine learning model to predict diseases from plant images.
 
 ## Usage
 
