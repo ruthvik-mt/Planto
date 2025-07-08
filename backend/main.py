@@ -40,7 +40,7 @@ from model_files.ml_predict import predict_plant
 import base64
 import requests
 import os
-import json  # noqa: F401
+import json
 from dotenv import load_dotenv
 from difflib import SequenceMatcher
 
@@ -64,16 +64,15 @@ def predict():
     imgdata = base64.b64decode(image)
 
     # ✅ Local model prediction
-    local_result, local_remedy = predict_plant(None, imgdata)
+    local_result, local_remedy, local_accuracy = predict_plant(None, imgdata)
     try:
         plant_local = local_result.split("___")[0]
         disease_local = " ".join(local_result.split("___")[1].split("_"))
-    except:  # noqa: E722
+    except Exception:
         plant_local = local_result
         disease_local = "N/A"
 
-    local_accuracy = 0.90  # You can estimate or set a fixed accuracy
-    print("🔍 Local:", disease_local)
+    print("🔍 Local:", disease_local, f"({local_accuracy:.2f})")
 
     # ✅ Plant.id API prediction
     plantid_disease = None
@@ -113,35 +112,32 @@ def predict():
     print(f"Similarity Score: {sim_score:.2f}")
 
     if sim_score > 0.6 and plantid_accuracy > 0.2:
-        # Combine results
-        avg_conf = round((local_accuracy + plantid_accuracy) / 2, 4)
+        avg_accuracy = round((local_accuracy + plantid_accuracy) / 2, 4)
         response = {
             "source": "hybrid_combined",
             "plant": plant_local,
             "disease": disease_local,
-            "accuracy": f"{avg_conf*100:.2f}%",
+            "accuracy": f"{avg_accuracy * 100:.2f}%",
             "description": plantid_description,
             "treatment": plantid_treatment,
             "remedy": local_remedy
         }
     elif plantid_accuracy > local_accuracy:
-        # Use Plant.id
         response = {
             "source": "plant.id",
             "plant": plant_local,
             "disease": plantid_disease or "Unknown",
-            "accuracy": f"{plantid_accuracy*100:.2f}%",
+            "accuracy": f"{plantid_accuracy * 100:.2f}%",
             "description": plantid_description,
             "treatment": plantid_treatment,
             "remedy": "Based on Plant.id API"
         }
     else:
-        # Use Local
         response = {
             "source": "custom_model",
             "plant": plant_local,
             "disease": disease_local,
-            "accuracy": f"{local_accuracy*100:.2f}%",
+            "accuracy": f"{local_accuracy * 100:.2f}%",
             "remedy": local_remedy
         }
 
@@ -149,3 +145,4 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8080)
+
