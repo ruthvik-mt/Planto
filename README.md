@@ -43,10 +43,10 @@ visit the website:
    ```
 2. Change directory to web:
 
-  ```bash
-  cd web
-  ```
-3. Use npm run dev to start the application:
+   ```bash
+   cd frontend
+   ```
+4. Use npm run dev to start the application:
 
    ```bash
      npm run dev
