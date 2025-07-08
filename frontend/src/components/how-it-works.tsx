@@ -1,7 +1,7 @@
 import Image from "next/image"
 import ClickPhoto from "@/assets/click-photo.jpg"
 import Processing from "@/assets/processing.jpg"
-import Greenry from "@/assets/happy-greens.jpg"
+import Greenery from "@/assets/happy-greens.jpg"
 import Header from "@/components/header"
 import { siteConfig } from "@/config/site"
 
@@ -38,14 +38,14 @@ export default function HowItWorks() {
           </div>
           <div className="py-4 text-center">
             <p>
-            VrikshaRakshak&apos;s advanced AI swiftly processes the uploaded image, utilizing a powerful machine learning model to analyze the leaf&apos;s visual traits and compare them against a vast database for accurate detection.
+            Planto&apos;s advanced AI swiftly processes the uploaded image, utilizing a powerful machine learning model to analyze the leaf&apos;s visual traits and compare them against a vast database for accurate detection.
             </p>
           </div>
         </div>
         <div>
           <div className="h-72 relative">
             <Image
-              src={Greenry}
+              src={Greenery}
               alt="Happy and Green Plants"
               fill
               className="object-cover rounded-md"
@@ -53,7 +53,7 @@ export default function HowItWorks() {
           </div>
           <div className="py-4 text-center">
             <p>
-            VrikshaRakshak delivers in-depth insights by identifying the exact disease affecting your plant. It provides a detailed overview of the plant, the disease, and effective remedies to ensure proper care.
+            Planto delivers in-depth insights by identifying the exact disease affecting your plant. It provides a detailed overview of the plant, the disease, and effective remedies to ensure proper care.
             </p>
           </div>
         </div>

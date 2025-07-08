@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Vriksha-Rakshak",
+  name: "Planto",
   url: "https://vriksha-rakshak.vercel.app",
   ogImage: "https://VrikshaRakshak.vercel.app/og.jpg",
   description:

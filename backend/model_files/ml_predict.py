@@ -203,7 +203,7 @@ def predict_plant(model,imgdata):
         # Get remedy for given plant disease
         try:
             remedy = get_remedy(plant_disease)
-        except:
+        except:  # noqa: E722
             remedy = "Not Found!"
     else:
         remedy = "Plant is Healthy"
