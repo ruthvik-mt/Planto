@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Ruthvik M T",
-      url: "https://plantiva.vercel.app",
+      url: siteConfig.url,
     },
   ],
   icons: {
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  manifest: "/site.webmanifest", // ✅ Add this line
+  manifest: "/site.webmanifest", // ✅ Required for PWA
 }
 
 export default function RootLayout({
