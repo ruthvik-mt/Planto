@@ -134,7 +134,7 @@ interface CustomResult {
   plant: string
   disease: string
   confidence: string
-  remedy: string
+  remedy: string | string[]
   source: string
 }
 

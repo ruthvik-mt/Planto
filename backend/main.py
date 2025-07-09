@@ -97,7 +97,7 @@ def predict():
             "plant": plant,
             "disease": disease,
             "confidence": f"{confidence * 100:.2f}%",
-            "remedy": remedy,
+            "remedy": remedy.split("\n") if isinstance(remedy, str) else remedy,
         },
         "plantid": {
             "suggestions": suggestions

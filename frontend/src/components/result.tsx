@@ -132,7 +132,7 @@ interface ResultProps {
       plant: string
       disease: string
       confidence: string
-      remedy: string
+      remedy: string | string[]
       source: string
     }
     plantid?: {
@@ -153,7 +153,19 @@ export default function Result({ data }: ResultProps) {
         <p><strong>Plant:</strong> {custom.plant}</p>
         <p><strong>Disease:</strong> {custom.disease}</p>
         <p><strong>Confidence:</strong> {custom.confidence}</p>
-        <p><strong>Remedy:</strong> {custom.remedy}</p>
+        <div className="mt-2">
+          <p><strong>Remedy:</strong></p>
+          <ul className="list-disc ml-6 mt-1">
+            {Array.isArray(custom.remedy) ? (
+              custom.remedy.map((point, i) => (
+        <li key={i}>{point}</li>
+        ))
+        ) : (
+      <li>{custom.remedy}</li>
+       )}
+      </ul>
+      </div>
+
       </div>
 
       {/* Plant.id Result */}

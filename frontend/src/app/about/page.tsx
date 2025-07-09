@@ -3,7 +3,7 @@
 export default function About() {
   return (
     <main className="min-h-screen py-24 px-8">
-      <div className="mx-auto prose max-w-[80ch] prose-cyan dark:prose-dark">
+      <div className="animate-fade-in mx-auto prose max-w-[80ch] prose-cyan dark:prose-dark">
         <h1>About the Project</h1>
         <p>
           <strong>Plantiva</strong> is an intelligent plant disease detection and remedy platform that empowers farmers, agriculturists, and hobbyists to diagnose crop health issues early using the power of AI and computer vision.
@@ -23,12 +23,12 @@ export default function About() {
           <li>Mobile-friendly and works on any modern browser</li>
         </ul>
         <h2>Why Plantiva Matters</h2>
-<ul>
-  <li><strong>Empowers Farmers & Gardeners:</strong> Enables early detection of plant diseases to prevent crop loss and reduce pesticide overuse.</li>
-  <li><strong>Bridges AI with Agriculture:</strong> Combines a custom-trained ML model and Plant.id API to ensure accurate, dual-source diagnosis.</li>
-  <li><strong>Accessible & Scalable:</strong> Designed to be easy to use locally and ready for cloud deployment, making it suitable for both small-scale and large-scale agricultural use.</li>
-  <li><strong>Fosters Sustainable Practices:</strong> Provides eco-friendly remedy suggestions (biological & cultural), promoting healthier farming techniques.</li>
-</ul>
+        <ul>
+          <li><strong>Empowers Farmers & Gardeners:</strong> Enables early detection of plant diseases to prevent crop loss and reduce pesticide overuse.</li>
+          <li><strong>Bridges AI with Agriculture:</strong> Combines a custom-trained ML model and Plant.id API to ensure accurate, dual-source diagnosis.</li>
+          <li><strong>Accessible & Scalable:</strong> Designed to be easy to use locally and ready for cloud deployment, making it suitable for both small-scale and large-scale agricultural use.</li>
+          <li><strong>Fosters Sustainable Practices:</strong> Provides eco-friendly remedy suggestions (biological & cultural), promoting healthier farming techniques.</li>
+        </ul>
 
         <p>
           Whether your a farmer looking to save your crops, a researcher exploring plant pathology, or a student learning AI in agriculture, Plantiva offers a practical, modern, and meaningful solution to plant health management.
