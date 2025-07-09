@@ -1,4 +1,4 @@
-# Planto
+# Plantiva
 
 ## Table of Contents
 
@@ -9,9 +9,9 @@
 
 ## Introduction
 
-Planto is a plant disease prediction and remedy suggestion application. It leverages CNN to analyze plant images and provide insights into potential diseases and their treatments.
+Plantiva is a plant disease prediction and remedy suggestion application. It leverages CNN to analyze plant images and provide insights into potential diseases and their treatments.
 
-Planto aims to assist farmers and gardeners by providing a tool to identify plant diseases and suggest remedies. The application uses a machine learning model to predict diseases from plant images.
+Plantiva aims to assist farmers and gardeners by providing a tool to identify plant diseases and suggest remedies. The application uses a machine learning model to predict diseases from plant images.
 
 ## Usage
 
