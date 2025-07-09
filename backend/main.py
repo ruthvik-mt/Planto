@@ -44,27 +44,38 @@ import json
 from dotenv import load_dotenv
 from difflib import SequenceMatcher
 
+# ✅ Load environment variables (for Plant.id API key)
 load_dotenv()
 
 app = Flask("Plant Disease Detector")
 CORS(app)
 
+# ✅ Load Plant.id API key from .env if available
 PLANT_ID_API_KEY = os.getenv("NEXT_PUBLIC_PLANT_ID_API_KEY")
 
 def similarity(a, b):
     return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "backend alive"}), 200
+
 @app.route('/', methods=['POST'])
 def predict():
     key_dict = request.get_json()
     image = key_dict.get("image")
+
     if not image:
         return jsonify({"error": "No image received"}), 400
 
-    imgdata = base64.b64decode(image)
+    try:
+        imgdata = base64.b64decode(image)
+    except Exception as e:
+        return jsonify({"error": f"Image decoding failed: {str(e)}"}), 400
 
-    # ✅ Local model prediction
+    # ✅ Custom model prediction
     local_result, local_remedy, local_accuracy = predict_plant(None, imgdata)
+
     try:
         plant_local = local_result.split("___")[0]
         disease_local = " ".join(local_result.split("___")[1].split("_"))
@@ -72,48 +83,51 @@ def predict():
         plant_local = local_result
         disease_local = "N/A"
 
-    print("🔍 Local:", disease_local, f"({local_accuracy:.2f})")
+    print("🔍 Local model:", disease_local, f"({local_accuracy:.2f})")
 
-    # ✅ Plant.id API prediction
+    # ✅ Optional: Plant.id API prediction
     plantid_disease = None
     plantid_accuracy = 0
     plantid_description = None
     plantid_treatment = None
 
     if PLANT_ID_API_KEY:
-        response = requests.post(
-            "https://plant.id/api/v3/health_assessment?language=en&details=local_name,description,url,treatment,classification,common_names,cause",
-            headers={
-                "Api-Key": PLANT_ID_API_KEY,
-                "Content-Type": "application/json"
-            },
-            json={
-                "images": [f"data:image/jpeg;base64,{image}"],
-                "similar_images": False
-            }
-        )
+        try:
+            response = requests.post(
+                "https://plant.id/api/v3/health_assessment?language=en&details=local_name,description,url,treatment,classification,common_names,cause",
+                headers={
+                    "Api-Key": PLANT_ID_API_KEY,
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "images": [f"data:image/jpeg;base64,{image}"],
+                    "similar_images": False
+                }
+            )
 
-        if response.status_code == 200:
-            result = response.json().get("result", {})
-            suggestions = result.get("disease", {}).get("suggestions", [])
-            if suggestions:
-                top = suggestions[0]
-                plantid_disease = top.get("name", "Unknown")
-                plantid_accuracy = top.get("probability", 0)
-                plantid_description = top.get("details", {}).get("description", "")
-                plantid_treatment = top.get("details", {}).get("treatment", {})
-        else:
-            print("Plant.id API error:", response.text)
+            if response.status_code == 200:
+                result = response.json().get("result", {})
+                suggestions = result.get("disease", {}).get("suggestions", [])
+                if suggestions:
+                    top = suggestions[0]
+                    plantid_disease = top.get("name", "Unknown")
+                    plantid_accuracy = top.get("probability", 0)
+                    plantid_description = top.get("details", {}).get("description", "")
+                    plantid_treatment = top.get("details", {}).get("treatment", {})
+            else:
+                print("Plant.id API error:", response.text)
+        except Exception as e:
+            print("Plant.id request failed:", e)
 
     print("🔍 Plant.id:", plantid_disease, f"({plantid_accuracy:.2f})")
 
-    # ✅ Smart logic: combine if disease names are similar
+    # ✅ Combine both models if possible
     sim_score = similarity(disease_local, plantid_disease or "")
     print(f"Similarity Score: {sim_score:.2f}")
 
     if sim_score > 0.6 and plantid_accuracy > 0.2:
         avg_accuracy = round((local_accuracy + plantid_accuracy) / 2, 4)
-        response = {
+        response_data = {
             "source": "hybrid_combined",
             "plant": plant_local,
             "disease": disease_local,
@@ -123,7 +137,7 @@ def predict():
             "remedy": local_remedy
         }
     elif plantid_accuracy > local_accuracy:
-        response = {
+        response_data = {
             "source": "plant.id",
             "plant": plant_local,
             "disease": plantid_disease or "Unknown",
@@ -133,7 +147,7 @@ def predict():
             "remedy": "Based on Plant.id API"
         }
     else:
-        response = {
+        response_data = {
             "source": "custom_model",
             "plant": plant_local,
             "disease": disease_local,
@@ -141,8 +155,10 @@ def predict():
             "remedy": local_remedy
         }
 
-    return jsonify(response)
+    return jsonify(response_data)
+
 
 if __name__ == '__main__':
+    # ✅ Run on local network (for testing on phone or other devices)
     app.run(debug=True, host='0.0.0.0', port=8080)
 
