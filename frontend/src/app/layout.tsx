@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Ruthvik M T",
-      url: "https://Plantiva.vercel.app",
+      url: "https://plantiva.vercel.app",
     },
   ],
   icons: {
