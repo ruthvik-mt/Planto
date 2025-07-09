@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "concurrently -k -s first -n backend,frontend -p none \"cd ../backend && python main.py\" \"wait-on http://localhost:8080/health && next dev\"",
-  "build": "next build",
-  "start": "next start",
-  "lint": "next lint"
+    "dev": "concurrently -k -s first -n backend,frontend -p none \"cd ../backend && python main.py > NUL 2>&1\" \"wait-on http://localhost:8080/health && next dev\"",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@mdx-js/loader": "^2.3.0",
@@ -45,6 +45,7 @@
   "description": "",
   "devDependencies": {
     "@types/axios": "^0.9.36",
+    "babel-eslint": "^10.1.0",
     "concurrently": "^9.2.0",
     "wait-on": "^8.0.3"
   }
