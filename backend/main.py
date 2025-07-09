@@ -40,7 +40,6 @@ from model_files.ml_predict import predict_plant
 import base64
 import requests
 import os
-import json
 from dotenv import load_dotenv
 from difflib import SequenceMatcher
 
