@@ -4,25 +4,34 @@ export default function About() {
   return (
     <main className="min-h-screen py-24 px-8">
       <div className="mx-auto prose max-w-[80ch] prose-cyan dark:prose-dark">
-        <h1>About</h1>
+        <h1>About the Project</h1>
         <p>
-          Welcome to our platform! We are dedicated to providing innovative solutions
-          and exceptional experiences to our users. Our mission is to create
-          technology that makes a difference in people&apos;s lives.
+          <strong>Plantiva</strong> is an intelligent plant disease detection and remedy platform that empowers farmers, agriculturists, and hobbyists to diagnose crop health issues early using the power of AI and computer vision.
         </p>
         <p>
-          Founded with a vision to revolutionize the way people interact with
-          technology, we continue to push boundaries and explore new possibilities.
-          Our team of passionate individuals works tirelessly to bring you the best
-          products and services.
+          This web-based solution allows users to upload images of affected plant leaves, and in return, receive accurate predictions about the disease, confidence score, and treatment suggestions. It leverages a hybrid approach combining a custom-trained machine learning model with the <strong>Plant.id API</strong> for higher accuracy and reliability.
         </p>
-        <h2>My Team</h2>
+        <p>
+          The goal is to minimize crop loss and maximize agricultural productivity by making disease detection fast, accessible, and easy to use — especially for those in remote or resource-constrained areas.
+        </p>
+        <h2>Key Features</h2>
         <ul>
-          <li>Ruthvik M T</li>
-          <li>Sampath Kumar</li>
-          <li>Prathika</li>
-          <li>Pratham</li>
+          <li>Upload leaf images to detect plant diseases in real time</li>
+          <li>Combines results from a custom ML model and Plant.id API</li>
+          <li>Provides natural, biological, and chemical treatment options</li>
+          <li>Displays prediction accuracy to help make informed decisions</li>
+          <li>Mobile-friendly and works on any modern browser</li>
         </ul>
+        <h2>Technologies Used</h2>
+        <ul>
+          <li><strong>Frontend:</strong> Next.js 13, TailwindCSS, TypeScript</li>
+          <li><strong>Backend:</strong> Flask, Python, ML model integration</li>
+          <li><strong>API:</strong> Plant.id (for health assessment)</li>
+          <li><strong>Deployment:</strong> Local development-ready, extendable to cloud</li>
+        </ul>
+        <p>
+          Whether your a farmer looking to save your crops, a researcher exploring plant pathology, or a student learning AI in agriculture, Plantiva offers a practical, modern, and meaningful solution to plant health management.
+        </p>
       </div>
     </main>
   )

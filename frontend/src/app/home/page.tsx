@@ -10,7 +10,7 @@ export default function Home() {
           Disease Detection
         </h1>
         <h2 className="scroll-m-20 border-b pb-2 text-xl md:text-2xl font-semibold tracking-tight transition-colors first:mt-0">
-          <span className="gradient-text">Prakriti Ki Suraksha, </span>  Machine Learning Ke Saath
+          <span className="gradient-text">Protecting Nature, </span>  Empowered by Machine Learning
         </h2>
       </div>
       <div className="mb-auto">

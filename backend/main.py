@@ -74,7 +74,7 @@ def predict():
         return jsonify({"error": f"Image decoding failed: {str(e)}"}), 400
 
     # ✅ Custom model prediction
-    local_result, local_remedy, local_accuracy = predict_plant(None, imgdata)
+    local_result, local_remedy, local_confidence = predict_plant(None, imgdata)
 
     try:
         plant_local = local_result.split("___")[0]
@@ -83,11 +83,11 @@ def predict():
         plant_local = local_result
         disease_local = "N/A"
 
-    print("🔍 Local model:", disease_local, f"({local_accuracy:.2f})")
+    print("Local model:", disease_local, f"({local_confidence:.2f})")
 
     # ✅ Optional: Plant.id API prediction
     plantid_disease = None
-    plantid_accuracy = 0
+    plantid_confidence = 0
     plantid_description = None
     plantid_treatment = None
 
@@ -111,7 +111,7 @@ def predict():
                 if suggestions:
                     top = suggestions[0]
                     plantid_disease = top.get("name", "Unknown")
-                    plantid_accuracy = top.get("probability", 0)
+                    plantid_confidence = top.get("probability", 0)
                     plantid_description = top.get("details", {}).get("description", "")
                     plantid_treatment = top.get("details", {}).get("treatment", {})
             else:
@@ -119,29 +119,29 @@ def predict():
         except Exception as e:
             print("Plant.id request failed:", e)
 
-    print("🔍 Plant.id:", plantid_disease, f"({plantid_accuracy:.2f})")
+    print("Plant.id:", plantid_disease, f"({plantid_confidence:.2f})")
 
     # ✅ Combine both models if possible
     sim_score = similarity(disease_local, plantid_disease or "")
     print(f"Similarity Score: {sim_score:.2f}")
 
-    if sim_score > 0.6 and plantid_accuracy > 0.2:
-        avg_accuracy = round((local_accuracy + plantid_accuracy) / 2, 4)
+    if sim_score > 0.6 and plantid_confidence > 0.2:
+        avg_confidence = round((local_confidence + plantid_confidence) / 2, 4)
         response_data = {
             "source": "hybrid_combined",
             "plant": plant_local,
             "disease": disease_local,
-            "accuracy": f"{avg_accuracy * 100:.2f}%",
+            "confidence": f"{avg_confidence * 100:.2f}%",
             "description": plantid_description,
             "treatment": plantid_treatment,
             "remedy": local_remedy
         }
-    elif plantid_accuracy > local_accuracy:
+    elif plantid_confidence > local_confidence:
         response_data = {
             "source": "plant.id",
             "plant": plant_local,
             "disease": plantid_disease or "Unknown",
-            "accuracy": f"{plantid_accuracy * 100:.2f}%",
+            "confidence": f"{plantid_confidence * 100:.2f}%",
             "description": plantid_description,
             "treatment": plantid_treatment,
             "remedy": "Based on Plant.id API"
@@ -151,7 +151,7 @@ def predict():
             "source": "custom_model",
             "plant": plant_local,
             "disease": disease_local,
-            "accuracy": f"{local_accuracy * 100:.2f}%",
+            "confidence": f"{local_confidence * 100:.2f}%",
             "remedy": local_remedy
         }
 

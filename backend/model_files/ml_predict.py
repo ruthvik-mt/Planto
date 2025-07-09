@@ -88,9 +88,9 @@
 #         probabilities = torch.softmax(output, dim=1)
 #         pred_idx = probabilities.argmax(dim=1).item()
 #         predicted_class = labels[pred_idx]
-#         accuracy = probabilities[0][pred_idx].item()
+#         confidence = probabilities[0][pred_idx].item()
 
-#         print(f"Predicted: {predicted_class} | Accuracy: {accuracy*100:.2f}%")
+#         print(f"Predicted: {predicted_class} | confidence: {confidence*100:.2f}%")
 
 #         # Remedy
 #         if "healthy" not in predicted_class.lower():
@@ -98,7 +98,7 @@
 #         else:
 #             remedy = "Plant is healthy."
 
-#         return predicted_class, remedy, accuracy
+#         return predicted_class, remedy, confidence
 
 #     except Exception as e:
 #         print("Prediction error:", e)
@@ -190,16 +190,16 @@ def predict_plant(model, imgdata):
         probabilities = torch.softmax(output, dim=1)
         pred_idx = probabilities.argmax(dim=1).item()
         predicted_class = labels[pred_idx]
-        accuracy = probabilities[0][pred_idx].item()
+        confidence = probabilities[0][pred_idx].item()
 
-        print(f"Predicted: {predicted_class} | Accuracy: {accuracy*100:.2f}%")
+        print(f"Predicted: {predicted_class} | confidence: {confidence*100:.2f}%")
 
         if "healthy" not in predicted_class.lower():
             remedy = get_remedy(predicted_class)
         else:
             remedy = "Plant is healthy."
 
-        return predicted_class, remedy, accuracy
+        return predicted_class, remedy, confidence
 
     except Exception as e:
         print("Prediction error:", e)

@@ -128,7 +128,7 @@ interface ResultProps {
   data: {
     plant: string
     disease: string
-    accuracy?: string
+    confidence?: string
     description?: string
     treatment?: {
       chemical?: string
@@ -141,7 +141,7 @@ interface ResultProps {
 }
 
 export default function Result({ data }: ResultProps) {
-  const { plant, disease, accuracy, description, treatment, remedy, source } = data
+  const { plant, disease, confidence, description, treatment, remedy, source } = data
 
   const isHealthy = disease.toLowerCase().includes("healthy")
 
@@ -164,10 +164,10 @@ export default function Result({ data }: ResultProps) {
             Disease: <strong>{disease}</strong>
           </p>
 
-          {accuracy && (
+          {confidence && (
              <p className="text-lg mt-1 text-black font-bold">
 
-           Accuracy: {accuracy}
+           Confidence Score: {confidence}
             </p>
 
           )}
