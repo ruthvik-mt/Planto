@@ -44,7 +44,7 @@ export interface Details {
   url: string
   treatment: Treatment
   classification: string[]
-  common_names: null
+  common_names: string[] | null
   cause: null
   language: string
   entity_id: string

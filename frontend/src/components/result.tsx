@@ -124,98 +124,87 @@
 //   )
 // }
 
+import { Suggestion } from "@/lib/types"
+
 interface ResultProps {
   data: {
-    plant: string
-    disease: string
-    confidence?: string
-    description?: string
-    treatment?: {
-      chemical?: string
-      biological?: string
-      prevention?: string
+    custom: {
+      plant: string
+      disease: string
+      confidence: string
+      remedy: string
+      source: string
     }
-    remedy: string
-    source?: string
+    plantid?: {
+      plant?: string
+      suggestions?: Suggestion[]
+    }
   }
 }
 
 export default function Result({ data }: ResultProps) {
-  const { plant, disease, confidence, description, treatment, remedy, source } = data
-
-  const isHealthy = disease.toLowerCase().includes("healthy")
+  const { custom, plantid } = data
 
   return (
-    <div className="w-screen mt-8 p-6 bg-secondary text-center">
-      <p className="text-2xl md:text-4xl">
-        Detected Plant: <span className="font-bold">{plant}</span>
-      </p>
+    <div className="mt-8 space-y-10">
+      {/* Custom Model Result */}
+      <div className="p-6 rounded-lg border bg-white dark:bg-zinc-900 shadow-md">
+        <h2 className="text-2xl font-bold mb-2 text-center">Custom Model Result</h2>
+        <p><strong>Plant:</strong> {custom.plant}</p>
+        <p><strong>Disease:</strong> {custom.disease}</p>
+        <p><strong>Confidence:</strong> {custom.confidence}</p>
+        <p><strong>Remedy:</strong> {custom.remedy}</p>
+        <p><strong>Source:</strong> {custom.source}</p>
+      </div>
 
-      <p className="text-xl mt-4">
-        Health Status:{" "}
-        <span className={isHealthy ? "text-green-600 font-bold" : "text-red-500 font-bold"}>
-          {isHealthy ? "Healthy" : "Unhealthy"}
-        </span>
-      </p>
+      {/* Plant.id Result */}
+      {plantid?.suggestions && plantid.suggestions.length > 0 ? (
+        <div className="p-6 rounded-lg border bg-white dark:bg-zinc-900 shadow-md">
+          <h2 className="text-2xl font-bold mb-2 text-center">Plant.id API Result</h2>
+          {plantid.suggestions.map((sug) => (
+            <div key={sug.id} className="mt-4 space-y-2 border-t pt-4">
+              <p><strong>Disease:</strong> {sug.name}</p>
+              <p><strong>Confidence:</strong> {(sug.probability * 100).toFixed(2)}%</p>
+              <p><strong>Description:</strong> {sug.details.description}</p>
 
-      {!isHealthy && (
-        <>
-          <p className="text-xl mt-4">
-            Disease: <strong>{disease}</strong>
-          </p>
+              <div className="mt-2 space-y-1">
+                <p><strong>Treatment:</strong></p>
+                <ul className="list-disc ml-6">
+                  {sug.details.treatment.chemical?.map((c, i) => (
+                    <li key={"chem" + i}>Chemical: {c}</li>
+                  ))}
+                  {sug.details.treatment.biological?.map((b, i) => (
+                    <li key={"bio" + i}>Biological: {b}</li>
+                  ))}
+                  {sug.details.treatment.prevention?.map((p, i) => (
+                    <li key={"prev" + i}>Prevention: {p}</li>
+                  ))}
+                </ul>
+              </div>
 
-          {confidence && (
-             <p className="text-lg mt-1 text-black font-bold">
-
-           Confidence Score: {confidence}
-            </p>
-
-          )}
-
-          {description && (
-            <div className="mt-4 text-justify">
-              <h3 className="font-semibold text-lg">Description</h3>
-              <p>{description}</p>
+              <div className="grid grid-cols-2 gap-4 mt-2">
+                {sug.similar_images.map((img) => (
+                  <div key={img.id}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={img.url}
+                      alt={img.citation ?? "similar image"}
+                      className="rounded-lg"
+                    />
+                    <p className="text-sm text-gray-500 mt-1">
+                      Similarity: {(img.similarity * 100).toFixed(2)}%
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-          )}
-
-          {treatment && (
-            <div className="mt-4 text-justify">
-              <h3 className="font-semibold text-lg">Treatment</h3>
-              <ul className="list-disc list-inside text-left">
-                {treatment.chemical && (
-                  <li>
-                    <strong>Chemical:</strong> {treatment.chemical}
-                  </li>
-                )}
-                {treatment.biological && (
-                  <li>
-                    <strong>Biological:</strong> {treatment.biological}
-                  </li>
-                )}
-                {treatment.prevention && (
-                  <li>
-                    <strong>Prevention:</strong> {treatment.prevention}
-                  </li>
-                )}
-              </ul>
-            </div>
-          )}
-
-          <div className="mt-4">
-            <p className="text-md">
-              <strong>Remedy:</strong> {remedy}
-            </p>
-          </div>
-        </>
-      )}
-
-      {isHealthy && (
-        <p className="text-md mt-4 text-green-700">
-          Your plant is happy and does not need any treatment! 🌱
-        </p>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center text-sm text-gray-500 italic">
+          No disease detected by Plant.id
+        </div>
       )}
     </div>
   )
 }
-
