@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     "Radix UI",
     "Shadcn UI",
     "Plant Disease Detection",
-    "VrikshaRakshak",
+    "Plantiva",
   ],
-  creator: "Ruthvik M T & Team",
+  creator: "Ruthvik M T",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Ruthvik M T",
-      url: "https://vriksha-rakshak.vercel.app",
+      url: "https://Plantiva.vercel.app",
     },
   ],
   icons: {
