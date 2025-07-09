@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  metadataBase: new URL(siteConfig.url), // ✅ This fixes the warning
+  metadataBase: new URL(siteConfig.url),
   keywords: [
     "Next.js",
     "React",
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
     creator: "@RuthvikMT",
   },
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
   authors: [
     {
@@ -66,6 +66,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+  manifest: "/site.webmanifest", // ✅ Add this line
 }
 
 export default function RootLayout({
