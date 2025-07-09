@@ -233,7 +233,7 @@ export function ImageBox() {
 
           <div className="mt-4">
             {!imageFile ? (
-              <Button disabled className="select-none">
+              <Button disabled className="select-none font-dark">
                 Add Image to Proceed
               </Button>
             ) : (

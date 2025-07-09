@@ -98,7 +98,6 @@ def predict():
             "disease": disease,
             "confidence": f"{confidence * 100:.2f}%",
             "remedy": remedy,
-            "source": "custom_model"
         },
         "plantid": {
             "suggestions": suggestions

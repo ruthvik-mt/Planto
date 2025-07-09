@@ -3,7 +3,7 @@ export const siteConfig = {
   url: "https://vriksha-rakshak.vercel.app",
   ogImage: "https://VrikshaRakshak.vercel.app/og.jpg",
   description:
-    "Bridging Nature and Technology – Explore, Identify, and Protect. Discover plant species, detect diseases, and nurture greenery with the power of ML.",
+    "Bridging Nature and Technology - Detect, Diagnose, and Protect. Identify plant diseases through image analysis and promote healthier growth using the power of ML",
   links: {
     github: "https://github.com/ruthvik-mt",
   },

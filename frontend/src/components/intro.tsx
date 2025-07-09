@@ -6,14 +6,15 @@ import { siteConfig } from "@/config/site"
 export default function Introduction() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center">
-      <div className="w-11/12 max-w-3xl flex flex-col items-center text-center">
+      <div className="w-11/12 max-w-3xl flex flex-col items-center text-center animate-fade-in">
         <h1 className="scroll-m-20 mb-6 text-5xl font-extrabold tracking-tight lg:text-6xl xl:text-7xl uppercase gradient-text">
           {siteConfig.name}
         </h1>
         <p className="text-center text-lg md:text-xl lg:text-2xl mt-8 max-w-2xl">
           {siteConfig.description}
         </p>
-        <Button className="my-10 text-lg py-6 px-8" asChild>
+        <Button
+        className="my-10 text-lg py-6 px-8 bg-emerald-600 hover:bg-emerald-700 text-black transition-colors duration-300"asChild>
           <Link href="/home">Use {siteConfig.name}</Link>
         </Button>
       </div>

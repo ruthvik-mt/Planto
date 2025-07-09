@@ -149,18 +149,17 @@ export default function Result({ data }: ResultProps) {
     <div className="mt-8 space-y-10">
       {/* Custom Model Result */}
       <div className="p-6 rounded-lg border bg-white dark:bg-zinc-900 shadow-md">
-        <h2 className="text-2xl font-bold mb-2 text-center">Custom Model Result</h2>
+        <h2 className="text-2xl font-bold mb-2 text-center">Smart Scan Result</h2>
         <p><strong>Plant:</strong> {custom.plant}</p>
         <p><strong>Disease:</strong> {custom.disease}</p>
         <p><strong>Confidence:</strong> {custom.confidence}</p>
         <p><strong>Remedy:</strong> {custom.remedy}</p>
-        <p><strong>Source:</strong> {custom.source}</p>
       </div>
 
       {/* Plant.id Result */}
       {plantid?.suggestions && plantid.suggestions.length > 0 ? (
         <div className="p-6 rounded-lg border bg-white dark:bg-zinc-900 shadow-md">
-          <h2 className="text-2xl font-bold mb-2 text-center">Plant.id API Result</h2>
+          <h2 className="text-2xl font-bold mb-2 text-center">Deep Scan Result</h2>
           {plantid.suggestions.map((sug) => (
             <div key={sug.id} className="mt-4 space-y-2 border-t pt-4">
               <p><strong>Disease:</strong> {sug.name}</p>

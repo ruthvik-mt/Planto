@@ -7,7 +7,7 @@ export default function Home() {
       <div className="text-center mb-auto">
         <h1 className="scroll-m-20 mb-4 text-3xl md:text-4xl font-extrabold tracking-tight lg:text-5xl">
           <span className="gradient-text">{siteConfig.name}</span> - Plant
-          Disease Detection
+          Disease Detector
         </h1>
         <h2 className="scroll-m-20 border-b pb-2 text-xl md:text-2xl font-semibold tracking-tight transition-colors first:mt-0">
           <span className="gradient-text">Protecting Nature, </span>  Empowered by Machine Learning

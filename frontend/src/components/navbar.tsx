@@ -5,18 +5,17 @@ import Link from "next/link"
 export function Navbar() {
   return (
     <nav className="flex fixed w-full backdrop-blur-sm items-center px-4 py-4 justify-between z-50">
-      <div className="flex gap-8 items-center">
+      <div className="flex gap-8 items-center animate-fade-in">
         <div>
-          <p className="scroll-m-20 text-xl font-semibold">
+          <p className="scroll-m-20 text-2xl font-semibold tracking-tight cursor-pointer transition-colors duration-300 hover:text-emerald-500">
             <Link href="/">{siteConfig.name}</Link>
           </p>
         </div>
-        <ul className="flex gap-4">
-          {/* TODO: Add Effects */}
-          <li className="cursor-pointer hover:underline">
+        <ul className="flex gap-6 text-lg font-medium">
+          <li className="cursor-pointer transition-colors duration-300 hover:text-emerald-500">
             <Link href="/home">Home</Link>
           </li>
-          <li className="cursor-pointer hover:underline">
+          <li className="cursor-pointer transition-colors duration-300 hover:text-emerald-500">
             <Link href="/about">About</Link>
           </li>
         </ul>
