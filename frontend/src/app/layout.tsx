@@ -94,22 +94,13 @@
 //   )
 // }
 
-// app/layout.tsx
 
-"use client";
-import { ThemeProvider } from "@/components/theme-provider"
+import "./globals.css"
+import { Inter } from "next/font/google"
 import type { Metadata } from "next"
 import { siteConfig } from "@/config/site"
-import { Inter } from "next/font/google"
-import { Navbar } from "@/components/navbar"
-import { Toaster } from "@/components/ui/toaster"
-import Footer from "@/components/footer"
-import "./globals.css"
 import QueryWrapper from "@/components/wrapper/query-wrapper"
-
-if (typeof window !== "undefined") {
-  import("@/lib/register-sw");
-}
+import ClientRoot from "./client-root" // ✅ client-only wrapper
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -121,14 +112,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
   keywords: [
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Server Components",
-    "Radix UI",
-    "Shadcn UI",
-    "Plant Disease Detection",
-    "Plantiva",
+    "Next.js", "React", "Tailwind CSS", "Server Components", "Radix UI",
+    "Shadcn UI", "Plant Disease Detection", "Plantiva",
   ],
   creator: "Ruthvik M T",
   openGraph: {
@@ -172,23 +157,17 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <QueryWrapper>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Navbar />
+          <ClientRoot>
             {children}
-            <Footer />
-            <Toaster />
-          </ThemeProvider>
+          </ClientRoot>
         </QueryWrapper>
       </body>
     </html>
   )
 }
+
