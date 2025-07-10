@@ -44,7 +44,8 @@
       "src": "/home.png",
       "sizes": "1280x720",
       "type": "image/png",
-      "label": "Home screen"
+      "label": "Home screen",
+      "form_factor": "wide"
     },
     {
       "src": "/upload.png",
