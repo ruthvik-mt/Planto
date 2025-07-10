@@ -2,6 +2,7 @@ import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { siteConfig } from "@/config/site"
 import Link from "next/link"
 
+
 export function Navbar() {
   return (
     <nav className="flex fixed w-full backdrop-blur-sm items-center px-4 py-4 justify-between z-50">

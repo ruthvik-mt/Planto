@@ -1,21 +1,30 @@
+"use client"
+
 import { ImageBox } from "@/components/image-box"
 import { siteConfig } from "@/config/site"
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-5 py-24 md:p-24 overflow-x-hidden">
-      <div className="text-center mb-auto">
-        <h1 className="scroll-m-20 mb-4 text-3xl md:text-4xl font-extrabold tracking-tight lg:text-5xl animate-fade-in">
-          <span className="gradient-text">{siteConfig.name}</span> - Plant Disease Detector
+    <section className="relative min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-lime-100 via-emerald-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-black overflow-hidden">
+      
+      {/* Background Visual */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-20 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-emerald-300 via-transparent to-transparent pointer-events-none z-0" />
+      
+      {/* Main Content */}
+      <div className="z-10 text-center px-6 md:px-12 space-y-6">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-wide bg-gradient-to-r from-emerald-500 via-lime-500 to-teal-400 bg-clip-text text-transparent drop-shadow-md animate-fade-in">
+          {siteConfig.name} – Plant Disease Detector
         </h1>
-      <h2 className="scroll-m-20 border-b pb-2 text-xl md:text-2xl font-semibold tracking-tight transition-colors first:mt-0 animate-fade-in">
-          <span className="gradient-text">Nurturing Nature, </span> Guided by Insight
-      </h2>
 
+        <p className="text-base text-emerald-700 dark:text-emerald-300 font-semibold uppercase tracking-wider animate-fade-in">
+          Nurturing Nature, Guided by Insight
+        </p>
+
+        {/* ✅ Only animation added; layout remains untouched */}
+        <div className="mt-12 animate-fade-in">
+          <ImageBox />
+        </div>
       </div>
-      <div className="mb-auto">
-        <ImageBox />
-      </div>
-    </main>
+    </section>
   )
 }

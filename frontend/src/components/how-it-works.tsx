@@ -10,80 +10,89 @@ import { motion } from "framer-motion"
 
 export default function HowItWorks() {
   return (
-    <motion.section
-      className="container pt-24 px-8"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-    >
-      <div className="animate-fade-in">
+    <section className="relative min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-lime-100 via-emerald-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-black overflow-hidden px-6 py-24">
+      {/* Background Effect */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-20 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-emerald-300 via-transparent to-transparent pointer-events-none z-0" />
+
+      {/* Section Heading */}
+      <motion.div
+        className="z-10 text-center mb-16 animate-fade-in"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
         <Header heading={`How ${siteConfig.name} Works?`} />
-      </div>
-      <div className="grid md:grid-cols-3 gap-8 w-full mt-16">
+        <p className="mt-4 text-md text-gray-700 dark:text-gray-300 max-w-xl mx-auto">
+          A simple 3-step process to diagnose plant diseases accurately and get treatment suggestions instantly.
+        </p>
+      </motion.div>
+
+      {/* Steps Grid */}
+      <div className="grid md:grid-cols-3 gap-10 max-w-7xl z-10 w-full">
         {/* Step 1 */}
         <motion.div
+          className="bg-white dark:bg-gray-900 rounded-xl shadow-xl p-6 flex flex-col items-center text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true }}
         >
-          <div className="h-72 relative">
+          <div className="relative h-60 w-full mb-4 rounded-md overflow-hidden">
             <Image
               src={ClickPhoto}
               alt="A person clicking photo of plant"
               fill
-              className="object-cover rounded-md"
+              className="object-cover"
             />
           </div>
-          <div className="py-4 text-center">
-            <p>
-              Capture a clear, well-lit image of a plant leaf showing possible disease symptoms. Ensure the image is sharp for accurate analysis. Easily upload it to the VrikshaRakshak platform through our user-friendly interface.
-            </p>
-          </div>
+          <p className="text-gray-800 dark:text-gray-200 text-sm">
+            Take a clear, well-lit photo of the plant leaf showing visible disease symptoms. Make sure the image is sharp to ensure accurate diagnosis. Then, easily upload it to the Plantive platform using our simple, user-friendly interface.
+          </p>
         </motion.div>
 
         {/* Step 2 */}
         <motion.div
+          className="bg-white dark:bg-gray-900 rounded-xl shadow-xl p-6 flex flex-col items-center text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
         >
-          <div className="h-72 relative">
+          <div className="relative h-60 w-full mb-4 rounded-md overflow-hidden">
             <Image
               src={Processing}
               alt="Computer Processing the instruction"
               fill
-              className="object-cover rounded-md"
+              className="object-cover"
             />
           </div>
-          <div className="py-4 text-center">
-            <p>
-              Plantiva&apos;s advanced AI swiftly processes the uploaded image, utilizing a powerful machine learning model to analyze the leaf&apos;s visual traits and compare them against a vast database for accurate detection.
-            </p>
-          </div>
+          <p className="text-gray-800 dark:text-gray-200 text-sm">
+           Plantiva's cutting-edge AI quickly examines the uploaded leaf image, leveraging machine learning to study visual patterns and match them against an extensive plant disease database for precise identification.
+          </p>
         </motion.div>
 
         {/* Step 3 */}
         <motion.div
+          className="bg-white dark:bg-gray-900 rounded-xl shadow-xl p-6 flex flex-col items-center text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
+          viewport={{ once: true }}
         >
-          <div className="h-72 relative">
+          <div className="relative h-60 w-full mb-4 rounded-md overflow-hidden">
             <Image
               src={Greenery}
               alt="Happy and Green Plants"
               fill
-              className="object-cover rounded-md"
+              className="object-cover"
             />
           </div>
-          <div className="py-4 text-center">
-            <p>
-              Plantiva delivers in-depth insights by identifying the exact disease affecting your plant. It provides a detailed overview of the plant, the disease, and effective remedies to ensure proper care.
-            </p>
-          </div>
+          <p className="text-gray-800 dark:text-gray-200 text-sm">
+            Plantiva offers detailed insights by accurately detecting the disease affecting the plant. It provides a thorough analysis of the plant’s condition, the identified issue, and suitable treatment measures for effective recovery.
+          </p>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   )
 }
