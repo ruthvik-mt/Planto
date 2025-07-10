@@ -96,6 +96,7 @@
 
 // app/layout.tsx
 
+"use client";
 import { ThemeProvider } from "@/components/theme-provider"
 import type { Metadata } from "next"
 import { siteConfig } from "@/config/site"
@@ -105,6 +106,10 @@ import { Toaster } from "@/components/ui/toaster"
 import Footer from "@/components/footer"
 import "./globals.css"
 import QueryWrapper from "@/components/wrapper/query-wrapper"
+
+if (typeof window !== "undefined") {
+  import("@/lib/register-sw");
+}
 
 const inter = Inter({ subsets: ["latin"] })
 
