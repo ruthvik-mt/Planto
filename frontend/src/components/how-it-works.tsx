@@ -44,7 +44,6 @@ export default function HowItWorks() {
               alt="A person clicking photo of plant"
               fill
               sizes="(max-width: 768px) 100vw, 33vw"
-              priority
               className="object-cover"
             />
           </div>
