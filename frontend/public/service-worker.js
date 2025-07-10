@@ -44,8 +44,7 @@ workbox.routing.registerRoute(
 // Fallback to offline page for navigation failures
 self.addEventListener("fetch", (event) => {
   if (event.request.mode === "navigate") {
-    // Immediately tell the browser to wait for our async handler
-    event.respondWith(handleRequest(event));
+    event.respondWith(handleRequest(event)); // called immediately
   }
 });
 
@@ -56,8 +55,9 @@ async function handleRequest(event) {
 
     const networkResp = await fetch(event.request);
     return networkResp;
-  } catch (error) {
+  } catch (err) {
     const cache = await caches.open(CACHE);
     return await cache.match(offlineFallbackPage);
   }
-};
+}
+
