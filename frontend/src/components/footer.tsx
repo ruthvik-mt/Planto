@@ -49,7 +49,7 @@ export default function Footer() {
           <ul className="w-2/3 flex flex-col mt-2">
             <Button variant="link" asChild>
               <Link
-                href="https://github.com/ruthvik-mt"
+                href="https://github.com/ruthvik-mt/Plantiva"
                 target="_blank"
                 className="flex items-center gap-2"
               >
