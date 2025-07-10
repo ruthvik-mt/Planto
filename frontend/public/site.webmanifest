@@ -29,19 +29,19 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshots/home.png",
+      "src": "/home.png",
       "sizes": "1080x1920",
       "type": "image/png",
       "label": "Home screen"
     },
     {
-      "src": "/screenshots/upload.png",
+      "src": "/upload.png",
       "sizes": "1080x1920",
       "type": "image/png",
       "label": "Image Upload Screen"
     },
     {
-      "src": "/screenshots/results.png",
+      "src": "/results.png",
       "sizes": "1080x1920",
       "type": "image/png",
       "label": "Result Screen"
