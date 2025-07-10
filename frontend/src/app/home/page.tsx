@@ -13,7 +13,7 @@ export default function Home() {
       {/* Main Content */}
       <div className="z-10 text-center px-6 md:px-12 space-y-6">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-wide bg-gradient-to-r from-emerald-500 via-lime-500 to-teal-400 bg-clip-text text-transparent drop-shadow-md animate-fade-in">
-          {siteConfig.name} – Plant Disease Detector
+          {siteConfig.name} – Plant Disease Detection
         </h1>
 
         <p className="text-base text-emerald-700 dark:text-emerald-300 font-semibold uppercase tracking-wider animate-fade-in">
