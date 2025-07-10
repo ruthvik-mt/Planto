@@ -6,6 +6,9 @@ An AI-powered Progressive Web App (PWA) for plant disease detection and health a
 - [Live Demo](#live-demo)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Introduction
 
@@ -16,7 +19,7 @@ Plantiva is a full-stack web application designed to help farmers, gardeners, an
 🌐 Visit the website:
 [Plantive](https://plantiva.vercel.app/)
 
-It can also be installed on mobile or desktop by clicking "Install Plantiva" from your browser or "Add to Home Screen" in mobile.
+The PWA version can be installed on desktop by clicking "Install Plantiva" from your browser or on mobile by clicking "Add to Home Screen". 
 
 ## Prerequisites
 
@@ -36,6 +39,9 @@ python -m venv env
 ```
 ```
 source env/bin/activate  # Windows: env\Scripts\activate
+```
+```
+pip install --upgrade pip
 ```
 ```
 pip install -r requirements.txt
@@ -74,4 +80,38 @@ Now u can view the project running at [https//:localhost:3000](http://localhost:
 npm run build
 npm start
 ```
+## Deployment:
+
+- Frontend Deployment: Vercel, Netlify, or any static hosting that supports Next.js.
+- Backend Deployment: Railway, Render, or Heroku.
+
+## Contributing:
+
+1. Fork the repository
+2. Clone the repository:
+   
+```
+git clone https://github.com/ruthvik-mt/Plantiva.git
+````
+```
+cd Plantive
+```
+```
+git remote add upstream https://github.com/ruthvik-mt/Plantive.git
+```
+4. Now, if you run ```git remote -v``` you should see two remote repositories named:
+- `origin` (forked repository)
+- `upstream` (scri.be repository)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) file for more details.
+
+##
+
+<div align="center">
+  <strong>Made with ❤️ using ML</strong>
+</div>
+
+
 
