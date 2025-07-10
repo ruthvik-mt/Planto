@@ -43,6 +43,8 @@ export default function HowItWorks() {
               src={ClickPhoto}
               alt="A person clicking photo of plant"
               fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              priority
               className="object-cover"
             />
           </div>
@@ -64,6 +66,7 @@ export default function HowItWorks() {
               src={Processing}
               alt="Computer Processing the instruction"
               fill
+              sizes="(max-width: 768px) 100vw, 33vw"
               className="object-cover"
             />
           </div>
@@ -85,6 +88,7 @@ export default function HowItWorks() {
               src={Greenery}
               alt="Happy and Green Plants"
               fill
+              sizes="(max-width: 768px) 100vw, 33vw"
               className="object-cover"
             />
           </div>

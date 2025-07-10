@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently -k -s first -n backend,frontend -p none \"cd ../backend && python main.py > NUL 2>&1\" \"wait-on http://localhost:8080/health && next dev\"",
     "build": "next build",
-    "start": "next start",
+    "start": "concurrently -k -s first -n backend,frontend -p none \"cd ../backend && python main.py\" \"next start\"",
     "lint": "next lint"
   },
   "dependencies": {
