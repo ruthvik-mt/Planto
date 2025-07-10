@@ -1,6 +1,10 @@
-const CACHE_NAME = "plantiva-cache-v1";
+const CACHE = "plantiva-cache-v2";
+const offlineFallbackPage = "offline.html";
 
-const urlsToCache = [
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+// Precache assets manually
+const urlsToPrecache = [
   "/",
   "/offline.html",
   "/favicon.ico",
@@ -17,46 +21,42 @@ const urlsToCache = [
   "/site.webmanifest"
 ];
 
-// Install event — pre-cache important assets
-self.addEventListener("install", (event) => {
-  console.log("[Service Worker] Installing and caching assets...");
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
-    })
-  );
+workbox.precaching.precacheAndRoute(urlsToPrecache);
+
+// Skip waiting
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
-// Activate event — clean up old caches if any
-self.addEventListener("activate", (event) => {
-  console.log("[Service Worker] Activated");
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            console.log("[Service Worker] Removing old cache:", cache);
-            return caches.delete(cache);
-          }
-        })
-      );
-    })
-  );
-});
+// Enable navigation preload
+if (workbox.navigationPreload.isSupported()) {
+  workbox.navigationPreload.enable();
+}
 
-// Fetch event — serve cached assets or fetch from network
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return (
-        cachedResponse ||
-        fetch(event.request).catch(() => {
-          // Return offline fallback if available
-          if (event.request.mode === "navigate") {
-            return caches.match("/offline.html");
-          }
-        })
-      );
-    })
-  );
+// Runtime caching for everything else
+workbox.routing.registerRoute(
+  new RegExp('/*'),
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: CACHE
+  })
+);
+
+// Fallback to offline page
+self.addEventListener('fetch', (event) => {
+  if (event.request.mode === 'navigate') {
+    event.respondWith((async () => {
+      try {
+        const preloadResp = await event.preloadResponse;
+        if (preloadResp) return preloadResp;
+
+        const networkResp = await fetch(event.request);
+        return networkResp;
+      } catch (error) {
+        const cache = await caches.open(CACHE);
+        return await cache.match(offlineFallbackPage);
+      }
+    })());
+  }
 });
