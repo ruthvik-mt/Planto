@@ -3,7 +3,7 @@ const offlineFallbackPage = "offline.html";
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
-// Manual precache with revision info to avoid Workbox warning
+// ✅ Precache static assets (with revisions to avoid Workbox warning)
 workbox.precaching.precacheAndRoute([
   { url: "/", revision: "v1" },
   { url: "/offline.html", revision: "v1" },
@@ -21,19 +21,19 @@ workbox.precaching.precacheAndRoute([
   { url: "/site.webmanifest", revision: "v1" }
 ]);
 
-// Skip waiting (optional but useful for rapid updates)
+// ✅ Listen for skipWaiting message (for immediate activation)
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });
 
-// Enable navigation preload for faster loads
+// ✅ Enable navigation preload (helps speed up page loading)
 if (workbox.navigationPreload.isSupported()) {
   workbox.navigationPreload.enable();
 }
 
-// Runtime caching: cache-first or stale-while-revalidate for all routes
+// ✅ Runtime caching strategy for documents (HTML pages)
 workbox.routing.registerRoute(
   ({ request }) => request.destination === "document",
   new workbox.strategies.StaleWhileRevalidate({
@@ -41,23 +41,22 @@ workbox.routing.registerRoute(
   })
 );
 
-// Fallback to offline page for navigation failures
+// ✅ Navigation fallback with proper preloadResponse usage
 self.addEventListener("fetch", (event) => {
   if (event.request.mode === "navigate") {
-    event.respondWith(handleRequest(event)); // called immediately
+    event.respondWith(handleNavigationRequest(event));
   }
 });
 
-async function handleRequest(event) {
+async function handleNavigationRequest(event) {
   try {
     const preloadResp = await event.preloadResponse;
     if (preloadResp) return preloadResp;
 
     const networkResp = await fetch(event.request);
     return networkResp;
-  } catch (err) {
+  } catch (error) {
     const cache = await caches.open(CACHE);
     return await cache.match(offlineFallbackPage);
   }
 }
-
