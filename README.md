@@ -1,54 +1,77 @@
-# Plantiva
-
+# 🌿 Plantiva
+An AI-powered Progressive Web App (PWA) for plant disease detection and health assessment.
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Usage](#usage)
-- [Features](#features)
+- [Live Demo](#live-demo)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 
 ## Introduction
 
-Plantiva is a plant disease prediction and remedy suggestion application. It leverages CNN to analyze plant images and provide insights into potential diseases and their treatments.
+Plantiva is a full-stack web application designed to help farmers, gardeners, and plant enthusiasts identify plant diseases by analyzing images. It uses a custom Convolutional Neural Network (CNN) model trained on plant disease datasets, and also integrates the Plant.id API to provide health assessments, confidence levels, and treatment suggestions.This combined approach delivers accurate and informative results, helping users take better care of their plants.
 
-Plantiva aims to assist farmers and gardeners by providing a tool to identify plant diseases and suggest remedies. The application uses a machine learning model to predict diseases from plant images.
+## Live Demo
 
-## Usage
+🌐 Visit the website:
+[Plantive](https://plantiva.vercel.app/)
 
-visit the website:
-[vriksha-rakshak](https://vriksha-rakshak.vercel.app/)
+It can also be installed on mobile or desktop by clicking "Install Plantiva" from your browser or "Add to Home Screen" in mobile.
 
-## Features
+## Prerequisites
 
-- Predict plant diseases from images.
-- Suggest remedies for identified diseases.
-- User-friendly web interface.
-- RESTful API for integration with other applications.
-- Developed a real time application.
+- Node.js(v18+)
+- Python 3.10
+- virtualenv (recommended)
+- Plant.id API key (sign up at https://web.plant.id)
 
 ## Installation
 
-### Prerequisites
+## Backend:
+```
+cd backend
+```
+```
+python -m venv env
+```
+```
+source env/bin/activate  # Windows: env\Scripts\activate
+```
+```
+pip install -r requirements.txt
+```
+Create ```.env``` file:
+```
+NEXT_PUBLIC_PLANT_ID_API_KEY=Your_API_KEY
+```
 
-- Node.js and npm
-- Python 3.x
-- Virtual environment (optional but recommended)
+## Frontend:
+```
+git clone https://github.com/ruthvik-mt/plantiva.git
+```
+```
+cd frontend
+```
+```
+npm install
+```
+Create ```.env.local``` file:
+```
+NEXT_PUBLIC_API_URL=http://localhost:8080
+NEXT_PUBLIC_PLANT_ID_API_KEY=Your_API_KEY
+```
+Run the project:
+```
+cd frontend
+```
+```
+npm run dev
+```
+Now u can view the project running at [https//:localhost:3000](http://localhost:3000/).
 
-### Steps
+## Production: Build and Run
+```
+npm run build
+npm start
+```
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/sampathvenur/vriksha-rakshak.git
-   ```
-2. Change directory to web:
-
-   ```bash
-   cd frontend
-   ```
-4. Use npm run dev to start the application:
-
-   ```bash
-     npm run dev
-   ```
-   
