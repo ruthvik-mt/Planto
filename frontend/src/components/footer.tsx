@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site"
 
 export default function Footer() {
   return (
-    <footer className="bg-accent/50">
+    <footer className="bg-accent/50 bg-gradient-to-br from-lime-100 via-emerald-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-black">
       <div className="w-11/12 md:w-2/3 px-4 py-8 mx-auto grid lg:grid-cols-3">
         <div className="flex flex-col lg:border-r lg:border-r-foreground/50 ">
           <div className="flex gap-2 items-center lg:justify-start justify-center">
