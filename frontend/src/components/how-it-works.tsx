@@ -65,6 +65,7 @@ export default function HowItWorks() {
               src={Processing}
               alt="Computer Processing the instruction"
               fill
+              priority
               sizes="(max-width: 768px) 100vw, 33vw"
               className="object-cover"
             />
