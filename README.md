@@ -110,7 +110,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://docs.
 ##
 
 <div align="center">
-  <strong>Made with ❤️ using ML</strong>
+  <strong>Made with ❤️ using AI/ML</strong>
 </div>
 
 
