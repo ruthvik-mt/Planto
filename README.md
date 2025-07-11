@@ -101,7 +101,7 @@ git remote add upstream https://github.com/ruthvik-mt/Plantive.git
 ```
 3. Now, if you run ```git remote -v``` you should see two remote repositories named:
 - `origin` (forked repository)
-- `upstream` (scri.be repository)
+- `upstream` (Plantive repository)
 
 ## License
 
