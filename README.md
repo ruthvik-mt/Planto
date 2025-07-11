@@ -99,7 +99,7 @@ cd Plantive
 ```
 git remote add upstream https://github.com/ruthvik-mt/Plantive.git
 ```
-4. Now, if you run ```git remote -v``` you should see two remote repositories named:
+3. Now, if you run ```git remote -v``` you should see two remote repositories named:
 - `origin` (forked repository)
 - `upstream` (scri.be repository)
 
